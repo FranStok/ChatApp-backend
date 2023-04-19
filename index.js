@@ -27,9 +27,11 @@ const publicPath=path.resolve(__dirname, "public") //__dirname apunta donde esta
 app.use(express.static(publicPath));
 
 
-//Rutas
+//Rutas. Aca es donde defino las rutas para los endpoints, y que hace cada una
 
 app.use("/api/login",require("./routes/auth"))
+app.use("/api/usuarios",require("./routes/usuarios"))
+app.use("/api/mensajes",require("./routes/mensajes"))
 
 
 server.listen(process.env.PORT, (err)=>{

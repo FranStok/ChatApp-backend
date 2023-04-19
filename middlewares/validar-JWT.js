@@ -6,7 +6,6 @@ const validarJWT=(req,res=response,next)=>{
             ok:false,
             msg:"No hay token en la peticion."
         });
-    console.log(token);
     try {
         //Si esto falla, el token no es valido y va al catch
         const {uid}=JWT.verify(token,process.env.JWT_KEY);

@@ -27,9 +27,11 @@ UsuarioSchema.method("toJSON",function(){
     //y luego con ..., le estoy diciendo que TODAS las otras propiedades que no
     //nombre, van a parar a demasPropiedades.
     //Luego para modificar el id, le agrego una propiedad uid, que es igual a _id.
-    const {__v,_id,password,...demasPropiedades} = this.toObject(); //this.toObject es la instancia del objeto que esta creado en este momento
-    demasPropiedades.uid=_id;
-    return demasPropiedades
+    if({_id}=this.toObject!=""){
+        const {__v,_id,password,...demasPropiedades} = this.toObject(); //this.toObject es la instancia del objeto que esta creado en este momento
+        demasPropiedades.uid=_id;
+        return demasPropiedades
+    }
 })
 
 module.exports=model("Usuario",UsuarioSchema);

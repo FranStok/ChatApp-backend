@@ -1,3 +1,4 @@
+const { mongo, default: mongoose } = require("mongoose");
 const { generarJWT } = require("../helpers/jwt");
 const Usuario = require("../models/usuario");
 const bcrypt=require("bcryptjs")
@@ -45,7 +46,6 @@ const crearUsuario=async(request,res=response)=>{
 }
 const loginUsuario=async(request,res=response)=>{
     const {mail,password}=request.body;
-
     try {
         //Usuario.findOne busca en la base de datos si el mail existe.
         const usuarioDB=await Usuario.findOne({mail});
@@ -85,14 +85,15 @@ const loginUsuario=async(request,res=response)=>{
 }
 
 const renewToken=async(req,res=response)=>{
-    const uid=req.uid //el uid lo saco del middleware validar-JWT (Mirar auth.js de routes)
-    const usuarioDB=await Usuario.findById(uid);
-    const token=await generarJWT(usuarioDB.uid);
+    const uid=req.uid; //el uid lo saco del middleware validar-JWT (Mirar auth.js de routes)
+    const usuarioDB=await Usuario.findById(uid); 
+    const token=await generarJWT(uid);
     return res.json({
         ok:true,
         usuario:usuarioDB,
         token
     })
+    
 }
 
 module.exports={
